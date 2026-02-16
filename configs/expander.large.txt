@@ -1,0 +1,122 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+    compatible = "brcm,bcm2711","brcm,bcm2835";
+
+    fragment@0 {
+        target = <&i2c1>;
+        __overlay__ {
+            status = "okay";
+
+            #address-cells = <1>;
+            #size-cells = <0>;
+
+            /* MCP23017 @ 0x26 — core RX/TX */
+            mcp26: gpio@26 {
+                compatible = "microchip,mcp23017";
+                reg = <0x26>;
+                gpio-controller;
+                #gpio-cells = <2>;
+                gpio-base = <500>;
+
+                gpio-line-names =
+                    "EN_0", "EN_1", "TX_0", "TX_1",
+                    "CT_0", "CT_1", "RX_0", "RX_1",
+                    "EN_2", "EN_3", "TX_2", "TX_3",
+                    "CT_2", "CT_3", "RX_2", "RX_3";
+            };
+
+            /* MCP23017 @ 0x27 — expansion */
+            mcp27: gpio@27 {
+                compatible = "microchip,mcp23017";
+                reg = <0x27>;
+                gpio-controller;
+                #gpio-cells = <2>;
+                gpio-base = <600>;
+
+                gpio-line-names =
+                    "EXP_0",  "EXP_1",  "EXP_2",  "EXP_3",
+                    "EXP_4",  "EXP_5",  "EXP_6",  "EXP_7",
+                    "EXP_8",  "EXP_9",  "EXP_10", "PCM_PDWN",
+                    "EXP_12", "EXP_13", "EXP_14", "EXP_15";
+            };
+
+            /* ADS1015 ADCs */
+ads48: adc@48 {
+    compatible = "ti,ads1015";
+    reg = <0x48>;
+    #address-cells = <1>;
+    #size-cells = <0>;
+
+    channel@0 {
+        reg = <0>;
+        ti,mux = <0>;          /* AIN0 */
+        ti,gain = <4>;
+        ti,data-rate = <4>;
+    };
+
+    channel@1 {
+        reg = <1>;
+        ti,mux = <1>;          /* AIN1 */
+        ti,gain = <4>;
+        ti,data-rate = <4>;
+    };
+
+    channel@2 {
+        reg = <2>;
+        ti,mux = <2>;          /* AIN2 */
+        ti,gain = <4>;
+        ti,data-rate = <4>;
+    };
+
+    channel@3 {
+        reg = <3>;
+        ti,mux = <3>;          /* AIN3 */
+        ti,gain = <4>;
+        ti,data-rate = <4>;
+    };
+};
+ads49: adc@49 {
+    compatible = "ti,ads1015";
+    reg = <0x49>;
+    #address-cells = <1>;
+    #size-cells = <0>;
+
+    channel@0 {
+        reg = <0>;
+        ti,mux = <0>;
+        ti,gain = <4>;
+        ti,data-rate = <4>;
+    };
+
+    channel@1 {
+        reg = <1>;
+        ti,mux = <1>;
+        ti,gain = <4>;
+        ti,data-rate = <4>;
+    };
+
+    channel@2 {
+        reg = <2>;
+        ti,mux = <2>;
+        ti,gain = <4>;
+        ti,data-rate = <4>;
+    };
+
+    channel@3 {
+        reg = <3>;
+        ti,mux = <3>;
+        ti,gain = <4>;
+        ti,data-rate = <4>;
+    };
+};
+
+            /* SC16IS752 UART (GPS) */
+            sc16: serial@4d {
+                compatible = "nxp,sc16is752";
+                reg = <0x4d>;
+            };
+        };
+    };
+};
