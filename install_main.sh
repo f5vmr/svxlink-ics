@@ -10,16 +10,19 @@ source "${BASH_SOURCE%/*}/functions/welcome.sh"
 welcome
 source "${BASH_SOURCE%/*}/functions/configure.sh"
 configure
-#### TEST for SA818 ####
-source "${BASH_SOURCE%/*}/functions/sa818_test.sh"
-sa818_test
-if [[ $sa818 == true ]]; then
-source "${BASH_SOURCE%/*}/functions/sa818_menu.sh"
-sa818_menu
-else
-echo -e "$(date)" "${YELLOW} #### No SA818 device #### ${NORMAL}" | sudo tee -a /var/log/install.log 
+#### Retrieval of installed cards from /etc/ics-repeater.conf ####
+if [[ -f /etc/ics-repeater.conf ]]; then
+    source /etc/ics-repeater.conf
+    case "$CARD_CHOICE" in
+        1) card_display="You are installing a 1X Card" ;;
+        2) card_display="You are installing a 2X Card" ;;
+        3) card_display="You are installing a 4X Card" ;;
+        *) card_display="Unknown" ;;
+    esac
+    echo -e "$(date)" "${YELLOW} #### Card Choice: $card_display #### ${NORMAL}" | sudo tee -a /var/log/install.log
 fi
-#### USB SOUND CARD ####
+
+#### SOUND CARD ####
 source "${BASH_SOURCE%/*}/functions/sound_card.sh"
 soundcard
 #### NODE Selection ####

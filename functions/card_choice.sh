@@ -16,6 +16,12 @@ card_choice() {
     local exit_status=$?
     
     if [[ $exit_status -eq 0 ]]; then
+        # Save choice to config file for persistence across reboot
+        echo "CARD_CHOICE=$choice" | sudo tee /etc/ics-repeater.conf > /dev/null
+        if [[ $? -ne 0 ]]; then
+            echo "Error: Failed to save configuration" >&2
+            return 1
+        fi
         echo "$choice"
         return 0
     else

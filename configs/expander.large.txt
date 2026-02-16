@@ -4,6 +4,7 @@
 / {
     compatible = "brcm,bcm2711","brcm,bcm2835";
 
+    /* ========= Fragment 0: I2C devices ========= */
     fragment@0 {
         target = <&i2c1>;
         __overlay__ {
@@ -21,10 +22,10 @@
                 gpio-base = <500>;
 
                 gpio-line-names =
-                    "EN_0", "EN_1", "TX_0", "TX_1",
-                    "CT_0", "CT_1", "RX_0", "RX_1",
-                    "EN_2", "EN_3", "TX_2", "TX_3",
-                    "CT_2", "CT_3", "RX_2", "RX_3";
+                    "EN_1", "EN_2", "TX_1", "TX_2",
+                    "CT_1", "CT_2", "RX_1", "RX_2",
+                    "EN_3", "EN_4", "TX_3", "TX_4",
+                    "CT_3", "CT_4", "RX_3", "RX_4";
             };
 
             /* MCP23017 @ 0x27 — expansion */
@@ -42,80 +43,54 @@
                     "EXP_12", "EXP_13", "EXP_14", "EXP_15";
             };
 
-            /* ADS1015 ADCs */
-ads48: adc@48 {
-    compatible = "ti,ads1015";
-    reg = <0x48>;
-    #address-cells = <1>;
-    #size-cells = <0>;
+            /* ADS1015 @ 0x48 — RX */
+            ads48: adc@48 {
+                compatible = "ti,ads1015";
+                reg = <0x48>;
+                #address-cells = <1>;
+                #size-cells = <0>;
 
-    channel@0 {
-        reg = <0>;
-        ti,mux = <0>;          /* AIN0 */
-        ti,gain = <4>;
-        ti,data-rate = <4>;
-    };
+                ads48_ch0: channel@0 { reg = <0>; ti,mux = <0>; ti,gain = <4>; ti,data-rate = <4>; };
+                ads48_ch1: channel@1 { reg = <1>; ti,mux = <1>; ti,gain = <4>; ti,data-rate = <4>; };
+                ads48_ch2: channel@2 { reg = <2>; ti,mux = <2>; ti,gain = <4>; ti,data-rate = <4>; };
+                ads48_ch3: channel@3 { reg = <3>; ti,mux = <3>; ti,gain = <4>; ti,data-rate = <4>; };
+            };
 
-    channel@1 {
-        reg = <1>;
-        ti,mux = <1>;          /* AIN1 */
-        ti,gain = <4>;
-        ti,data-rate = <4>;
-    };
+            /* ADS1015 @ 0x49 — TX */
+            ads49: adc@49 {
+                compatible = "ti,ads1015";
+                reg = <0x49>;
+                #address-cells = <1>;
+                #size-cells = <0>;
 
-    channel@2 {
-        reg = <2>;
-        ti,mux = <2>;          /* AIN2 */
-        ti,gain = <4>;
-        ti,data-rate = <4>;
-    };
-
-    channel@3 {
-        reg = <3>;
-        ti,mux = <3>;          /* AIN3 */
-        ti,gain = <4>;
-        ti,data-rate = <4>;
-    };
-};
-ads49: adc@49 {
-    compatible = "ti,ads1015";
-    reg = <0x49>;
-    #address-cells = <1>;
-    #size-cells = <0>;
-
-    channel@0 {
-        reg = <0>;
-        ti,mux = <0>;
-        ti,gain = <4>;
-        ti,data-rate = <4>;
-    };
-
-    channel@1 {
-        reg = <1>;
-        ti,mux = <1>;
-        ti,gain = <4>;
-        ti,data-rate = <4>;
-    };
-
-    channel@2 {
-        reg = <2>;
-        ti,mux = <2>;
-        ti,gain = <4>;
-        ti,data-rate = <4>;
-    };
-
-    channel@3 {
-        reg = <3>;
-        ti,mux = <3>;
-        ti,gain = <4>;
-        ti,data-rate = <4>;
-    };
-};
+                ads49_ch0: channel@0 { reg = <0>; ti,mux = <0>; ti,gain = <4>; ti,data-rate = <4>; };
+                ads49_ch1: channel@1 { reg = <1>; ti,mux = <1>; ti,gain = <4>; ti,data-rate = <4>; };
+                ads49_ch2: channel@2 { reg = <2>; ti,mux = <2>; ti,gain = <4>; ti,data-rate = <4>; };
+                ads49_ch3: channel@3 { reg = <3>; ti,mux = <3>; ti,gain = <4>; ti,data-rate = <4>; };
+            };
 
             /* SC16IS752 UART (GPS) */
             sc16: serial@4d {
                 compatible = "nxp,sc16is752";
                 reg = <0x4d>;
+            };
+        };
+    };
+
+    /* ========= Fragment 1: Aliases ========= */
+    fragment@1 {
+        target-path = "/";
+        __overlay__ {
+            aliases {
+                adc_rx1 = &ads48_ch0;
+                adc_rx2 = &ads48_ch1;
+                adc_rx3 = &ads48_ch2;
+                adc_rx4 = &ads48_ch3;
+
+                adc_tx1 = &ads49_ch0;
+                adc_tx2 = &ads49_ch1;
+                adc_tx3 = &ads49_ch2;
+                adc_tx4 = &ads49_ch3;
             };
         };
     };

@@ -11,31 +11,18 @@ sound_cards=$(cat /proc/asound/cards)
 #other_sound_card_detected=false
 #fepi_sound_card_detected=false
 
-# Check for USB sound card
-if echo "$sound_cards" | grep -q 'USB-Audio'; then
-    echo "USB sound card detected:" | sudo tee -a /var/log/install.log > /dev/null
-    echo "$sound_cards" | grep -A 1 'USB-Audio'
-    usb_sound_card_detected
-fi
-#Check for WM8960 sound card
-if echo "$sound_cards" | grep -q 'wm8960soundcard'; then
-    echo "WM8960 sound card detected:" | sudo tee -a /var/log/install.log > /dev/null
-    echo "$sound_cards" | grep -A 1 'wm8960'
-    usb_sound_card_detected
-fi
-# Check for Seeed 2-mic or WM8960 voice card
-if echo "$sound_cards" | grep -q 'seeed-2mic-voicecard'; then
-    echo "Seeed 2-mic voice card detected:" | sudo tee -a /var/log/install.log > /dev/null
-    #echo "$sound_cards" | grep -A 1 'seeed-2mic-voicecard'
-    usb_sound_card_detected
-fi
+
 # Check for Fe-Pi / ICS repeater sound card
 if echo "$sound_cards" | grep -Eq 'Fe-Pi|FePi|sndrpihifiberry|HifiBerry'; then
     echo "Fe-Pi / ICS sound card detected:" | sudo tee -a /var/log/install.log > /dev/null
     echo "$sound_cards" | grep -E 'Fe-Pi|FePi|sndrpihifiberry|HifiBerry'
-    usb_sound_card_detected
+    Fe-Pi_sound_card_detected
 fi
-
+if echo "$sound_cards" | grep -Eq 'TosLink|MCHStreamer|I2S'; then
+    echo "Toslink sound card detected:" | sudo tee -a /var/log/install.log > /dev/null
+    echo "$sound_cards" | grep -E 'TosLink|MCHStreamer|I2S'
+    TosLink_sound_card_detected
+fi
 # Check for any other sound cards not explicitly identified by name and not Loopback
 if echo "$sound_cards" | grep -q '[0-9] \[' && ! echo "$sound_cards" | grep -q 'Loopback' && ! $usb_sound_card_detected && ! $seeed_sound_card_detected; then
     echo "Other sound card detected:" | sudo tee -a /var/log/install.log > /dev/null
@@ -43,20 +30,31 @@ if echo "$sound_cards" | grep -q '[0-9] \[' && ! echo "$sound_cards" | grep -q '
     other_sound_card_detected
 fi
 
-
-
-if echo "$sound_cards" | grep -q '[0-9] \[' \
-   && ! echo "$sound_cards" | grep -q 'Loopback' \
-   && ! $usb_sound_card_detected \
-   && ! $seeed_sound_card_detected \
-   && ! $fepi_sound_card_detected; then
-    echo "Handling other sound card specifics..." | sudo tee -a /var/log/install.log > /dev/null
-    other_sound_card_detected  
-    # Add your specific handling code here for other sound cards
-fi
 }
 ## Print the assigned variable value
-
+function Fe-Pi_sound_card_detected {
+    if card_choice=1
+    then
+    card="Fe-Pi 1X Card"
+    txgpiochip=3
+    ptt_gpiod_line=10
+    rxgpiochip=0
+    sql_gpiod_line=26
+    ctcss_gpiod_line=24
+    elseif card_choice=2
+    then
+    card="Fe-Pi 2X Card"
+    tx_gpiochip=3
+    ptt_gpiod_line1=10
+    ptt_gpiod_line2=11
+    rx_gpiochip=0
+    sql_gpiod_line1=26
+    sql_gpiod_line2=23
+    elseif card_choice=3
+    then
+    card="Toslink 4X Card"
+    tx_gpiochip=3
+    
 function usb_sound_card_detected {
 echo "Variable assigned: $sound_card_variable"
 
