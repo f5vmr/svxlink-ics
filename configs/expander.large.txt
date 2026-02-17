@@ -82,15 +82,15 @@
         target-path = "/";
         __overlay__ {
             aliases {
-                adc_rx1 = &ads48_ch0;
-                adc_rx2 = &ads48_ch1;
-                adc_rx3 = &ads48_ch2;
-                adc_rx4 = &ads48_ch3;
+                adc-rx1 = &ads48_ch0;
+                adc-rx2 = &ads48_ch1;
+                adc-rx3 = &ads48_ch2;
+                adc-rx4 = &ads48_ch3;
 
-                adc_tx1 = &ads49_ch0;
-                adc_tx2 = &ads49_ch1;
-                adc_tx3 = &ads49_ch2;
-                adc_tx4 = &ads49_ch3;
+                adc-tx1 = &ads49_ch0;
+                adc-tx2 = &ads49_ch1;
+                adc-tx3 = &ads49_ch2;
+                adc-tx4 = &ads49_ch3;
             };
         };
     };

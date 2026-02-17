@@ -18,22 +18,11 @@ which_language
 
 # Run language-specific installer
 case "$LANG" in
-    fr_FR.UTF-8)
-        sudo ./svxlinkbuilder/install_main_fr.sh
-        ;;
+    
     en_US.UTF-8)
         sudo ./svxlinkbuilder/install_main.sh
         ;;
-    es_ES.UTF-8)
-        sudo ./svxlinkbuilder/install_main_es.sh
-        ;;
-    pt_PT.UTF-8)
-        sudo ./svxlinkbuilder/install_main_pt.sh
-        ;;
-    it_IT.UTF-8)
-        sudo ./svxlinkbuilder/install_main_it.sh
-        ;;
-    *)
+    en_GB.UTF-8)
         sudo ./svxlinkbuilder/install_main.sh  # Default UK English
         ;;
 esac
