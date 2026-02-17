@@ -28,6 +28,7 @@ compiler
 sudo reboot
 
 ./svxlink/install.sh
+Install fan_watch
 
 .
 

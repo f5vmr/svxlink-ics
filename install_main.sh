@@ -21,6 +21,8 @@ if [[ -f /etc/ics-repeater.conf ]]; then
     esac
     echo -e "$(date)" "${YELLOW} #### Card Choice: $card_display #### ${NORMAL}" | sudo tee -a /var/log/install.log
 fi
+#### Fan Watch Script ####
+source "${BASH_SOURCE%/*}/functions/fan_watch.sh"
 
 #### SOUND CARD ####
 source "${BASH_SOURCE%/*}/functions/sound_card.sh"
