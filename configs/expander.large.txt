@@ -37,9 +37,9 @@
                 gpio-base = <600>;
 
                 gpio-line-names =
-                    "EXP_0",  "EXP_1",  "EXP_2",  "EXP_3",
-                    "EXP_4",  "EXP_5",  "EXP_6",  "EXP_7",
-                    "EXP_8",  "EXP_9",  "EXP_10", "PCM_PDWN",
+                    "EXP_1",  "EXP_2",  "EXP_3",  "EXP_4",
+                    "EXP_5",  "EXP_6",  "EXP_6",  "EXP_8",
+                    "REL_1",  "REL_2",  "EXP_10", "PCM_PDWN",
                     "EXP_12", "EXP_13", "EXP_14", "EXP_15";
             };
 
