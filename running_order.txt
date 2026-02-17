@@ -31,7 +31,8 @@ sudo reboot
 welcome
 configure
 fan_watch
-
+soundcard
+node_type
 .
 
 

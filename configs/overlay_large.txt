@@ -1,5 +1,4 @@
 dtoverlay=i2c_arm=on
-dtoverlay=fe-pi-audio
 dtoverlay=12s-mmap
 # Enable mcp3208 adc overlay
 dtoverlay=mcp3208:spi0-0-present,spi0-0-speed=1000000
