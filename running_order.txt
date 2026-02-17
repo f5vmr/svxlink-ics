@@ -1,5 +1,5 @@
 stage 1 - with the image installed and card attached
- ./svxlinkbuilder/preinstall
+ ./svxlink/preinstall.sh
  first menu What card have you attached
  	1.1X
  	2.2X
@@ -24,4 +24,11 @@ compiler
     dtoverlay=i2c_arm=on
     dtoverlay=12s=on
     dtoverlay=ics-repeater
+
+sudo reboot
+
+./svxlink/install.sh
+
+.
+
 
