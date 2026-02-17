@@ -22,7 +22,7 @@
 #  is needed, set both PTT gpio to the logic in use.
 #  
 #  The GPIO for the fan needs to be an otherwise unused GPIO where the control
-#  signal is accessable.  This GPIO needs to be added to the normal gpio.conf
+#  signal is accessible.  This GPIO needs to be added to the normal gpio.conf
 #  file as either and active low or active high output pin.  This module does
 #  not configure this for you.
 #
