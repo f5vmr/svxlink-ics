@@ -32,7 +32,7 @@ def follow(file):
 
 def main():
     tx_on = False
-
+    set_gpios(0)
     with open(LOGFILE, "r") as logfile:
         for line in follow(logfile):
             if ON_PHRASE in line and not tx_on:
