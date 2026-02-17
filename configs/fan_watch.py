@@ -1,0 +1,50 @@
+#!/usr/bin/env python3
+
+import time
+import subprocess
+
+LOGFILE = "/var/log/svxlink.log"
+
+GPIO_CHIP = "gpiochip"
+GPIO_LINES = [5, 6, 22]
+
+ON_PHRASE = "Turning the transmitter ON"
+OFF_PHRASE = "Turning the transmitter OFF"
+
+
+def set_gpios(value):
+    for line in GPIO_LINES:
+        subprocess.run(
+            ["sudo", "gpioset", GPIO_CHIP, f"{line}={value}"],
+            check=False
+        )
+
+
+def follow(file):
+    file.seek(0, 2)  # go to end of file
+    while True:
+        line = file.readline()
+        if not line:
+            time.sleep(0.2)
+            continue
+        yield line
+
+
+def main():
+    tx_on = False
+
+    with open(LOGFILE, "r") as logfile:
+        for line in follow(logfile):
+            if ON_PHRASE in line and not tx_on:
+                tx_on = True
+                time.sleep(5)
+                set_gpios(1)
+
+            elif OFF_PHRASE in line and tx_on:
+                time.sleep(20)
+                set_gpios(0)
+                tx_on = False
+
+
+if __name__ == "__main__":
+    main()
