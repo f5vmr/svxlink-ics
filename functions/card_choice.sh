@@ -10,7 +10,7 @@ card_choice() {
     choice=$(whiptail --title "Sound Card Selection" --menu "Select your repeater card type:" 12 60 3 \
         "1" "1X Single Port Card" \
         "2" "2X Dual Port Card" \
-        "4" "4XFour Port Card" \
+        "3" "4X Four Port Card" \
         3>&1 1>&2 2>&3)
     
     local exit_status=$?
