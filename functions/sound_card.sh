@@ -54,7 +54,21 @@ function Fe-Pi_sound_card_detected {
     then
     card="Toslink 4X Card"
     tx_gpiochip=3
-    
+}
+function TosLink_sound_card_detected {
+    card="Toslink 4X Card"
+    tx_gpiochip=3
+    rx_gpiochip=3
+    ptt_gpiod_line1=TX_1
+    ptt_gpiod_line2=TX_2
+    ptt_gpiod_line3=TX_3
+    ptt_gpiod_line4=TX_4
+    sql_gpiod_line1=RX_1
+    sql_gpiod_line2=RX_2
+    sql_gpiod_line3=RX_3
+    sql_gpiod_line4=RX_4
+
+}
 function usb_sound_card_detected {
 echo "Variable assigned: $sound_card_variable"
 
