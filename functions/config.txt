@@ -11,4 +11,8 @@ You will need to ask for a password by writing to g4nab.ne63@gmail.com
 
 You will be asked for the combination of Repeaters and/or Simplex installation
 according to the card type.
+
+The Repeaters should be port 1 and 2 unless you have more. If you have a selection 
+then repeaters should be first, followed by simplex. Empty ports are acceptable.
+
  

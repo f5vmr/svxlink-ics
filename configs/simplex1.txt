@@ -1,7 +1,7 @@
 [Simplex1Logic]
 TYPE=Simplex
 RX=Rx1
-TX=Tx1
+TX=MultiTx
 MODULES=ModuleHelp,ModuleParrot,ModuleMetarInfo
 CALLSIGN=MYCALL
 #
