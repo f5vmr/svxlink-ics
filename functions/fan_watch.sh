@@ -26,5 +26,5 @@ fan_watch() {
       -e "s/__GPIO_LINES__/${GPIO_LINES}/" \
       "$TEMPLATE" > "$OUT"
 
-    chmod +x "$OUT"
+    sudo chmod +x "$OUT"
 }
