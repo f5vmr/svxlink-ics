@@ -4,7 +4,7 @@ import time
 import subprocess
 
 LOGFILE = "/var/log/svxlink.log"
-
+i
 GPIO_CHIP = "gpiochip"
 GPIO_LINES = [5, 6, 22]
 
